@@ -29,10 +29,6 @@ class Bike {
     }
 
     public int yearDifferece(int imputYear) {
-        if (imputYear > this.getAgeRealise()) {
-            return (imputYear - this.ageRealise);
-        } else {
-            return (this.ageRealise - imputYear);
+            return Math.abs(imputYear - this.ageRealise);
         }
     }
-}

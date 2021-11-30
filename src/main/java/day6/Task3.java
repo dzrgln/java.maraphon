@@ -17,7 +17,7 @@ public class Task3 {
 
 
 class Teacher {
-
+    Random rand = new Random();
     private String name;
     private String subject;
 
@@ -38,7 +38,7 @@ class Teacher {
     }
 
     public void evaluate(Student s) {
-        Random rand = new Random();
+
         int mark = rand.nextInt(3);
         String textMark;
         switch (mark) {

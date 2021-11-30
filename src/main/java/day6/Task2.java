@@ -52,11 +52,7 @@ class Airplane {
     }
 
     public void info() {
-        System.out.println("Изготовитель: " + producer);
-        System.out.println("Год выпуска: " + year);
-        System.out.println("Длинна: " + length);
-        System.out.println("Вес: " + weight);
-        System.out.println("Количество топлива в баке: " + fuel);
+        System.out.println("Изготовитель: " + producer +"\nГод выпуска " + year + "\nДлинна: " + length + "\nВес: " + weight + "\nКоличество топлива в баке: " + fuel);
     }
 
     public void fillUp (int n){

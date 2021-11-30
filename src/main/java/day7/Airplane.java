@@ -50,10 +50,12 @@ class Airplane {
         fuel = fuel + n;
     }
 
-    public static void compareLength(Airplane a, Airplane b){
-        if(a.length>b.length){
+    public static void compareLength(Airplane a, Airplane b) {
+        if (a.length > b.length) {
             System.out.println("Самолет " + a.producer + " длиннее");
-        }else {
+        } else if(a.length == b.length){
+            System.out.println("Самолет " + a.producer + " равен самолету " + b.producer);
+        } else {
             System.out.println("Самолет " + b.producer + " длиннее");
         }
     }

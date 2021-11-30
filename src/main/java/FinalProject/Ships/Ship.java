@@ -66,7 +66,7 @@ public class Ship {
                 }
 
             } catch (NumberFormatException exception) {
-                System.out.println("Неверный формат. Введите данные в формате i,j");
+                System.out.println("Неверный формат. Каждая точка должна быть введена в формате i,j. Разделитель между точка - ;.");
             }
         }
         pointsOfShip = points;
@@ -111,21 +111,25 @@ public class Ship {
                 while (true) {
                     points = this.createInsertionPoint();
                     if (points.size() == sizeShip) {
-                        break;
+                        if (checkNearShip(battlefield, points)) {
+                            if (checkNearOreol(battlefield, points)) {
+                                Ship ship1 = new Ship(points, battlefield, sizeShip);
+                                System.out.println("Корабль успешно создан");
+                                break;
+                            } else {
+                                points.clear();
+                                System.out.println("Корабль не создан. Корабль должен располагаться на расстоянии минимум в одну клетку от существующего");
+                            }
+                        } else {
+                            points.clear();
+                            System.out.println("Корабль не создан. Одна из точек вашего корабля совпадает с точкой существуюего корабля");
+                        }
                     } else {
                         points.clear();
                         System.out.println("Корабль не создан. Количество введеных точек должно соответсоввать коилчеству палуб корабля");
                     }
                 }
-                if (battlefield.getBattlefield()[points.get(0).getNewI()][points.get(0).getNewJ()] == empty.getP()) {
-                    Ship ship1 = new Ship(points, battlefield, sizeShip);
-                    System.out.println("Корабль успешно создан");
-                    break;
-                } else if (!checkNearShip(battlefield, points)) {
-                    System.out.println("На этом месте уже есть корабль, введите другую точку");
-                } else if (!checkNearOreol(battlefield, points)) {
-                    System.out.println("Ваш корабль располагается слишком близко к существующему, введите другую точку");
-                }
+                break;
             } catch (ArrayIndexOutOfBoundsException exception) {
                 System.out.println("Неверный формат. Введите значение от 0 до 9");
             }
@@ -133,28 +137,45 @@ public class Ship {
     }
 
     private boolean checkLine(List<Point> points) {
-        boolean isLine = false;
-        for (int i = 1; i < points.size(); i++) {
-            if (points.get(i).getI() == points.get(i - 1).getI() || points.get(i).getJ() == points.get(i - 1).getJ()) {
-                isLine = true;
+        boolean isLine = true;
+        Point point = points.get(0);
+        for (Point x : points) {
+ //           System.out.println("value" + x);
+            if (x.getI() != point.getI() && x.getJ() != point.getJ()) {
+//                System.out.println("comp " + point);
+                isLine = false;
+//                System.out.println("isLine " + isLine);
+                point = new Point(x.getI(), x.getJ());
+//                System.out.println("new " + point);
             }
         }
         if (points.size() == 1) {
             isLine = true;
         }
+//        System.out.println("IsLine " + isLine);
         return isLine;
     }
 
     private boolean checkValidity(List<Point> points) {
-        boolean isValidity = false;
-        for (int i = 1; i < points.size(); i++) {
-            if (points.get(i).getI() - points.get(i - 1).getI() == 1 | points.get(i).getJ() - points.get(i - 1).getJ() == 1 && points.get(i).getI() > points.get(i - 1).getI() | points.get(i).getJ() > points.get(i - 1).getJ()) {
-                isValidity = true;
+        boolean isValidity = true;
+        Point point = new Point(points.get(0).getI() - 1, points.get(0).getJ() - 1);
+        for (Point x : points) {
+            System.out.println("value " + x);
+            System.out.println("comp point" + point);
+            if ((x.getI() - point.getI() != 1  && x.getJ() - point.getJ() != 1) ) {
+                isValidity = false;
+                System.out.println("isval " + isValidity);
+                point = new Point(x.getI(), x.getJ());
+                System.out.println("point "+ point);
+            } else {
+                point = new Point(x.getI(), x.getJ());
+                System.out.println("elseP "+ point);
             }
         }
         if (points.size() == 1) {
             isValidity = true;
         }
+        System.out.println("final isVal " + isValidity);
         return isValidity;
     }
 
@@ -165,7 +186,7 @@ public class Ship {
                 isNear = false;
             }
         }
-        return  isNear;
+        return isNear;
     }
 
     private boolean checkNearOreol(Battlefield battlefield, List<Point> points) {
@@ -175,7 +196,6 @@ public class Ship {
                 isNear = false;
             }
         }
-        return  isNear;
+        return isNear;
     }
-
 }

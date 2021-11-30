@@ -14,7 +14,7 @@ public class Task2 {
 
 
         Player.info();
-        while (a.getStamina()>Player.getMinStamina()) {
+        while (a.getStamina() > Player.getMinStamina()) {
             Player.run(a);
         }
         Player.info();
@@ -29,9 +29,8 @@ class Player {
 
     public Player(int stamina) {
         this.stamina = stamina;
-        countPlayers++;
-        if (countPlayers > 6) {
-            countPlayers = 6;
+        if (countPlayers < 6) {
+            countPlayers++;
         }
     }
 
@@ -43,20 +42,21 @@ class Player {
         return countPlayers;
     }
 
-    public static int getMinStamina(){
+    public static int getMinStamina() {
         return MIN_STAMINA;
     }
 
     public static void run(Player a) {
-        if(a.stamina>0) {
+        if (a.stamina > 0) {
             a.stamina = a.stamina - 1;
         } else {
-            a.stamina=0;
+            a.stamina = 0;
         }
         if (a.stamina == 0) {
             Player.countPlayers = Player.countPlayers - 1;
         }
     }
+
     public static void info() {
         if (Player.countPlayers < 6) {
             int a = 6 - Player.countPlayers;
