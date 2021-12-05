@@ -140,19 +140,14 @@ public class Ship {
         boolean isLine = true;
         Point point = points.get(0);
         for (Point x : points) {
- //           System.out.println("value" + x);
             if (x.getI() != point.getI() && x.getJ() != point.getJ()) {
-//                System.out.println("comp " + point);
                 isLine = false;
-//                System.out.println("isLine " + isLine);
                 point = new Point(x.getI(), x.getJ());
-//                System.out.println("new " + point);
             }
         }
         if (points.size() == 1) {
             isLine = true;
         }
-//        System.out.println("IsLine " + isLine);
         return isLine;
     }
 
@@ -160,22 +155,16 @@ public class Ship {
         boolean isValidity = true;
         Point point = new Point(points.get(0).getI() - 1, points.get(0).getJ() - 1);
         for (Point x : points) {
-            System.out.println("value " + x);
-            System.out.println("comp point" + point);
             if ((x.getI() - point.getI() != 1  && x.getJ() - point.getJ() != 1) ) {
                 isValidity = false;
-                System.out.println("isval " + isValidity);
                 point = new Point(x.getI(), x.getJ());
-                System.out.println("point "+ point);
             } else {
                 point = new Point(x.getI(), x.getJ());
-                System.out.println("elseP "+ point);
             }
         }
         if (points.size() == 1) {
             isValidity = true;
         }
-        System.out.println("final isVal " + isValidity);
         return isValidity;
     }
 
